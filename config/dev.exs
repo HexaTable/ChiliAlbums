@@ -2,11 +2,12 @@ import Config
 
 # Configure your database
 config :chilialbums, Chilialbums.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "chilialbums_dev",
-  stacktrace: true,
+  adapter: Ecto.Adapters.Postgres,
+  database: System.get_env("DB_NAME", "store_dev"),
+  username: System.get_env("DB_USERNAME", "postgres"),
+  password: System.get_env("DB_PASSWORD", "postgres"),
+  port: System.get_env("DB_PORT", "5432"),
+  hostname: System.get_env("DB_HOST", "localhost"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -26,7 +27,8 @@ config :chilialbums, ChilialbumsWeb.Endpoint,
   secret_key_base: "Fx+5ty0/u+zI/r0VFm3rty7C4uht8jYLL8uCMeeKPJmND4U5lGyVo2bKbvIZj2Le",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

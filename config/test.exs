@@ -6,12 +6,13 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :chilialbums, Chilialbums.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  adapter: Ecto.Adapters.Postgres,
   database: "chilialbums_test#{System.get_env("MIX_TEST_PARTITION")}",
-  pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  username: System.get_env("DB_USERNAME", "postgres"),
+  password: System.get_env("DB_PASSWORD", "postgres"),
+  port: System.get_env("DB_PORT", "5432"),
+  hostname: System.get_env("DB_HOST", "localhost"),
+  pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
@@ -22,6 +23,8 @@ config :chilialbums, ChilialbumsWeb.Endpoint,
 
 # In test we don't send emails.
 config :chilialbums, Chilialbums.Mailer, adapter: Swoosh.Adapters.Test
+
+config :bcrypt_elixir, :log_rounds, 4
 
 # Print only warnings and errors during test
 config :logger, level: :warn
