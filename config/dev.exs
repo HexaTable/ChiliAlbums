@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :chilialbums, Chilialbums.Repo,
   adapter: Ecto.Adapters.Postgres,
-  database: System.get_env("DB_NAME", "store_dev"),
+  database: System.get_env("DB_NAME", "chillialbms_dev"),
   username: System.get_env("DB_USERNAME", "postgres"),
   password: System.get_env("DB_PASSWORD", "postgres"),
   port: System.get_env("DB_PORT", "5432"),
